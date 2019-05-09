@@ -1,0 +1,20 @@
+os:
+  - linux
+  - osx
+install:
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-x86_64.sh
+    -O miniconda.sh; else wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+    -O miniconda.sh; fi
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - rm miniconda.sh
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+script:
+  - echo "Building"
+  - conda install conda-build anaconda-client conda-verify
+  - conda config --add channels conda-forge
+  - conda config --add channels breathe
+  - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then bash -x ./conda_build.sh; else
+    bash -x ./conda_upload.sh; fi
