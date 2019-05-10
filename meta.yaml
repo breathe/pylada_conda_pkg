@@ -18,7 +18,11 @@ build:
 
 requirements:
   build:
-    - python=3.4
+    - cmake
+    - "{{ compiler('c') }}"
+    - "{{ compiler('cxx') }}"
+    - "{{ compiler('fortran') }}"
+    - python=3.6
     - setuptools
     - mpi4py
     - numpy
@@ -31,13 +35,13 @@ requirements:
     - py
     - jupyter
     - scipy
+    - pytest-bdd
     - quantities
     - f90nml
-    - pytest-bdd
   run:
-    - python=3.4
+    - python=3.6
+    - "{{ pin_compatible('numpy') }}"
     - mpi4py
-    - numpy
     - ipython
     - eigen
     - nbconvert
@@ -45,9 +49,10 @@ requirements:
     - py
     - jupyter
     - scipy
+    - pytest-bdd
     - quantities
     - f90nml
-test:
+  test:
   # Python imports
   imports:
     - pylada
