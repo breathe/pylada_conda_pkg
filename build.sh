@@ -23,7 +23,7 @@ echo `ls /opt/*`
 echo "mpirun version" `mpirun --version : Open MPI 3.1.0`
 
 # test mpiexec functionality
-mpiexec -n 5 python -m mpi4py.bench helloworld
+mpiexec -n 5 --oversubscribe python -m mpi4py.bench helloworld
 
 mkdir build
 cd build
