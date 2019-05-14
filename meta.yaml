@@ -3,8 +3,8 @@ package:
   version: 1.0
 
 source:
-  # git_url: https://github.com/pylada/pylada-light.git
-  git_url: https://github.com/breathe/pylada-light.git
+  git_url: https://github.com/pylada/pylada-light.git
+  # git_url: https://github.com/breathe/pylada-light.git
   # path: ../pylada-light
 
 build:
