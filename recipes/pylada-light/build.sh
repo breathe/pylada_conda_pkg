@@ -44,7 +44,8 @@ export OMP_NUM_THREADS=4
 # basic sanity test for mpiexec functionality
 mpiexec -n 5 python -m mpi4py.bench helloworld
 
-ctest -V
+# run testsuite except notebooks tests which require 'tree' command
+ctest -V -LE notebooks
 make install
 
 
