@@ -20,12 +20,13 @@ install:
 script:
   - echo "Building"
   - conda install conda-build anaconda-client conda-verify
+  - conda config --set channel_priority strict
   - conda config --add channels conda-forge
   - conda config --add channels breathe
   - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then bash -x ./conda_build.sh; else
     bash -x ./conda_upload.sh; fi
 env:
   global:
-    - OMPI_MCA_plm=isolated OMPI_MCA_rmaps_base_oversubscribe=true MPI=openmpi OMP_NUM_THREADS=8
+    - OMPI_MCA_plm=isolated OMPI_MCA_btl_vader_single_copy_mechanism=none OMPI_MCA_rmaps_base_oversubscribe=yes OMP_NUM_THREADS=8
     - secure: IIT+auk4Xiz7EF7aeNbeUNe3AN3JF6yaRE7mx6qOCl5mhKLBtSDtQy89ANeuQTvWEuOLqg8YvZtlnNaNkUxCm330pUoO+ikHvafUtQ42qwPf2PvJkZtjneSg27D49jB7J4SSz2B7JlzWYd8aGpL1FDNaUEG5F4rN9iPdqkussgE+NQF99KpeczwJh8cOSxhcMjgWc7XovTWP/YQ0uBiokWA/r8gE1fDt36NFWIbrBuAqyo++w367sKaEeNI+Rgvj4+//6Qfc91valgIqQLgQcfIp1TCg8mN3HYDi9dFr71vTqGoLSqLtJIa90wt7y2o7ELATpLEEzAPQuNYxzuDQvjykuHFD2n++2pGa1usfC6OxDoFVKNAHW/5JpVm+aYEv6QhbJxKztAXc/O6fs3IYeY2qfHhM0PsXh2shZHDHdNueq+jU30sz3pVJnWyr/9wSZVHJ/5NRiCw9bWrSfKqJ9DNIPcsyL5GMkry498V8ogNaR157o0eovWhMqTme8pS1O+93H3AhPLV0iUwr/a/p7FwbsfJRU3RjhXM6/bJPA/bn56rLdzC7E3YgVE2f8s2f4W2ie29ysdb0NRb9DBBQv3t8Nn1SpmB8vjRoVghQy1/c5IIYEUVgUtCf1KT3vwDNvE33TSrjIpD86c09KzrMfSdcR+ZphZiTyc/q7XY4Wr8=
     - secure: M9rOtvh8togq2yj27NgNrV1QWMm3ozn9+y06aA5ewrbFIV3D1ZcZnlPTtV/mICZc7FNs86c8nY2ogDeYUl1pwHu/pRzTXj8vRhGPEJgZFjT963o2y34I53bxGaUuf5FT9o/x8OtPEGaP6FYi1RcOJ0vMXMQnnoJLTpF1f1+7XSbiZTed4CQxSJdoT3DTyjHzyqOVQ8Kz8+l90PFU5/dTzHkpk3ec7H5lltxkpv6pdZ0rmAANI9HNpwutJyUKFYAiJs58ikL0Q99mRXUdvSHMlw/1bOqYJ4o7XLP0d6BYtm9svmRTQoctVzJxyLoUD6UEW/aIiEzKZGo5K2iJIfDc2UOsmE5SsOAwfLnW9KyjIHMa8hnp2KtVBKdaL5ffmQdqHwD50g3xNAJ1au5v6rdGFB16LyIruEaHpTwcTdjD40xmqEa9yrHatx1UqUsZllWubEqs6pvexs7dVlnt7ACwWK+sTxRMDw5Dr2mjdSog0VVQJIOaCngc9Ek3nd4DP8cV22B41CLLtoUthxSCqCgnmXJpPcFgVxP1JQbIHM6j31yJYN2aRn2C/7ZujTYrIgIA0qGy47ISPPtZ7KoFS0uoUbdRI0a4eaC+m5k8pc1Vw4+rAUJBBFK3uMBAjJiPZR1YbXcBbLLC99IQYsPfGMFIKvLy15oB5hyhUoIegpO6rPs=

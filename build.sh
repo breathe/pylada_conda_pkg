@@ -19,6 +19,12 @@ fi
 
 export EIGEN3_INCLUDE_DIR=$CONDA_PREFIX/include/eigen3
 
+echo `ls /opt/*`
+echo "mpirun version" `mpirun --version : Open MPI 3.1.0`
+
+# test mpiexec functionality
+mpiexec -n 5 python -m mpi4py.bench helloworld
+
 mkdir build
 cd build
 
@@ -27,9 +33,8 @@ cmake \
 -DCOOKOFF_GITREPO="https://github.com/breathe/GreatCMakeCookOff.git" \
 ..
 
-
 make VERBOSE=1
-OMP_NUM_THREADS=4 ctest -V
+ctest -V
 make install
 
 
