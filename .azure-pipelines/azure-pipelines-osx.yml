@@ -56,7 +56,7 @@ jobs:
       echo "Finding recipes merged in master and removing them from the build."
       pushd ./recipes > /dev/null
       git fetch --force origin master:master
-      git ls-tree --name-only master -- . | xargs -I {} sh -c "rm -rf {} && echo Removing recipe: {}"
+      # git ls-tree --name-only master -- . | xargs -I {} sh -c "rm -rf {} && echo Removing recipe: {}"
       popd > /dev/null
       echo ""
 
