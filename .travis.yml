@@ -21,7 +21,6 @@ script:
   - echo "Building"
   - conda install conda-build anaconda-client conda-verify
   - conda config --add channels conda-forge
-  - conda config --add channels breathe
   - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then bash -x ./conda_build.sh; else
     bash -x ./conda_upload.sh; fi
 env:
