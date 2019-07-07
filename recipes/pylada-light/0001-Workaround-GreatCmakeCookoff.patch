@@ -1,0 +1,46 @@
+From b2b8f89b147877ab09390002f37742891e74cc06 Mon Sep 17 00:00:00 2001
+From: Joel 'Aaron' Cohen <aaron@assonance.org>
+Date: Sat, 6 Jul 2019 23:23:18 -0400
+Subject: [PATCH] Workaround GreatCmakeCookoff incorrectly linking libpython
+
+---
+ CMakeLists.txt | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a12947b..a34ecaf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -74,3 +74,29 @@ if(tests)
+   add_subdirectory(notebooks)
+ endif()
+ 
++function(list_project_targets VAR)
++	set(dir ".")
++        if (ARGV1)
++		set(dir ${ARGV1})
++	endif()
++	get_directory_property(dirtargets DIRECTORY ${dir} BUILDSYSTEM_TARGETS)
++	get_directory_property(subdirs DIRECTORY ${dir} SUBDIRECTORIES)
++	list(APPEND ${VAR} "${dirtargets}")
++	foreach(dir IN LISTS subdirs)
++		list_project_targets(${VAR} ${dir})
++	endforeach()
++	set(${VAR} "${${VAR}}" PARENT_SCOPE)
++endfunction()
++
++list_project_targets(targets)
++message("targets: ${targets}")
++foreach(target ${targets})
++	get_target_property(libs ${target} LINK_LIBRARIES)
++	if (libs)
++		message("prelibs: ${libs}")
++		list(REMOVE_ITEM libs ${PYTHON_LIBRARIES})
++		message("postlibs: ${libs}")
++		set_target_properties(${target} PROPERTIES LINK_LIBRARIES "${libs}")
++	endif()
++endforeach()
++
+-- 
+2.17.1
+
