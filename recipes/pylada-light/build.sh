@@ -11,8 +11,10 @@ if [ "${SHORT_OS_STR}" == "Darwin" ]; then
     # export CXXFLAGS=-std=c++11
     # export CXXFLAGS="-stdlib=libstdc++ -isysroot ${CONDA_BUILD_SYSROOT}"
     # export CXXFLAGS="-stdlib=libstdc++"
-    export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -lc++"
-    export LDFLAGS="-headerpad_max_install_names -undefined dynamic_lookup -bundle -Wl,-search_paths_first -lc++"
+    # export CXXFLAGS="${CXXFLAGS} -stdlib=libc++ -lc++"
+    # export LDFLAGS="-headerpad_max_install_names -undefined dynamic_lookup -bundle -Wl,-search_paths_first -lc++"
+    # yeah -- https://groups.google.com/a/continuum.io/forum/#!topic/anaconda/057P4uNWyCU
+    export LDFLAGS="-undefined dynamic_lookup"
     export CMAKE_OSX_SYSROOT=${CONDA_BUILD_SYSROOT}
 fi
 
@@ -21,7 +23,6 @@ export EIGEN3_INCLUDE_DIR=$CONDA_PREFIX/include/eigen3
 
 echo `ls /opt/*`
 echo "mpirun version" `mpirun --version : Open MPI 3.1.0`
-ompi_info
 
 
 mkdir build
@@ -42,7 +43,7 @@ export OMP_NUM_THREADS=4
 # export OMPI_MCA_mpi_yield_when_idle=yes
 
 # basic sanity test for mpiexec functionality
-mpiexec -n 5 python -m mpi4py.bench helloworld
+# mpiexec -n 5 python -m mpi4py.bench helloworld
 
 # run testsuite except notebooks tests which require 'tree' command
 ctest -V -LE notebooks
