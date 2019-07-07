@@ -29,8 +29,8 @@ cd build
 
 cmake \
 -DCMAKE_INSTALL_PREFIX=$PREFIX \
--DCOOKOFF_GITREPO="https://github.com/breathe/GreatCMakeCookOff.git" \
 ..
+#-DCOOKOFF_GITREPO="https://github.com/breathe/GreatCMakeCookOff.git" \
 
 make VERBOSE=1
 
