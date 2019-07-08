@@ -38,12 +38,14 @@ make VERBOSE=1
 # configure openmpi in such a way that it will work in travis-ci
 export OMPI_MCA_rmaps_base_oversubscribe=yes
 export OMP_NUM_THREADS=4
+export OMPI_MCA_plm_rsh_agent="echo"
+
 # export OMPI_MCA_plm=isolated
 # export OMPI_MCA_btl_vader_single_copy_mechanism=none
 # export OMPI_MCA_mpi_yield_when_idle=yes
 
 # basic sanity test for mpiexec functionality
-# mpiexec -n 5 python -m mpi4py.bench helloworld
+mpiexec -n 5 python -m mpi4py.bench helloworld
 
 # run testsuite except notebooks tests which require 'tree' command
 ctest -V -LE notebooks
